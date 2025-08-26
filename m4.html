@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debugging Us 💻💕</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #1a1e3f, #0f1223);
+      color: #fff;
+      text-align: center;
+      overflow-x: hidden;
+    }
+    h1 { margin-top: 20px; }
+    .console {
+      background: #0b0e23;
+      border-radius: 14px;
+      padding: 16px;
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto;
+      text-align: left;
+      font-family: monospace;
+      font-size: 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      min-height: 180px;
+    }
+    .slideshow-container {
+      display: none;
+      position: relative;
+      max-width: 100%;
+      margin: auto;
+    }
+    .mySlides { display: none; }
+    .mySlides img {
+      width: 90%;
+      max-width: 350px;
+      border-radius: 12px;
+    }
+    .caption {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #f3f3f3;
+      padding: 0 10px;
+    }
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 10px;
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.4);
+      user-select: none;
+    }
+    .next { right: 0; }
+    .dot-container { text-align: center; margin: 14px 0; }
+    .dot {
+      height: 10px;
+      width: 10px;
+      margin: 0 3px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .active { background-color: #f87171; }
+    .love-meter {
+      margin: 20px auto;
+      width: 80%;
+    }
+    #emojiRain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hi Mohana — can we ❤️ debug last night?</h1>
+  <div class="console" id="console"></div>
+
+  <div class="slideshow-container" id="slideshow">
+    <div class="mySlides">
+      <img src="images/IMG-1.jpg" alt="Photo 1">
+      <div class="caption">When your check-in is 7kg and your wardrobe is 27kg… you become the suitcase 😎✈️</div>
+    </div>
+    <div class="mySlides">
+      <img src="images/IMG-2.jpg" alt="Photo 2">
+      <div class="caption">This smile → better than biryani 😍</div>
+    </div>
+    <div class="mySlides">
+      <img src="images/IMG-3.jpg" alt="Photo 3">
+      <div class="caption">More than Athens, it was you who became more special ✨❤️</div>
+    </div>
+    <div class="mySlides">
+      <img src="images/IMG-4.jpg" alt="Photo 4">
+      <div class="caption">Lift buttons: G, 1, 2… but I only wanna stop at ‘US’ 🥹❤️</div>
+    </div>
+    <div class="mySlides">
+      <img src="images/IMG-5.jpg" alt="Photo 5">
+      <div class="caption">Certified cutiepie alert 🚀</div>
+    </div>
+    <a class="prev" onclick="plusSlides(-1)">❮</a>
+    <a class="next" onclick="plusSlides(1)">❯</a>
+  </div>
+  <div class="dot-container">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+    <span class="dot" onclick="currentSlide(4)"></span>
+    <span class="dot" onclick="currentSlide(5)"></span>
+  </div>
+
+  <div class="love-meter" id="meter" style="display:none;">
+    <p>Partner Meter ❤️</p>
+    <progress value="0" max="100" id="progress"></progress>
+  </div>
+
+  <div id="emojiRain"></div>
+
+  <script>
+    // Console typing effect
+    const lines = [
+      "> Running: forMohana.js ...",
+      "import laughter from 'mohana';",
+      "import chitChat from 'lateNight';",
+      "Loading memories... ✅",
+      "Checking mood → tough day detected 😔",
+      "Applying happinessPatch.v2 ... ✅",
+      "Injecting extra smiles ... 😁",
+      "Warning: Too much teasing overflow 🤭",
+      "Caution: Coconut detected in gelato 🥥🍦",
+      "console.log('Mohana makes everything soothing 💖');",
+      "console.log('Cutiepie mode activated 🚀');",
+      "Execution finished successfully 🎉",
+      "Result: Happiness Unlocked for Mohana 💐"
+    ];
+
+    let i = 0;
+    const consoleDiv = document.getElementById("console");
+
+    function typeLine() {
+      if (i < lines.length) {
+        consoleDiv.innerHTML += lines[i] + "<br/>";
+        i++;
+        setTimeout(typeLine, 1000);
+      } else {
+        document.getElementById("slideshow").style.display = "block";
+        document.getElementById("meter").style.display = "block";
+        fillMeter();
+        showSlides(slideIndex);
+      }
+    }
+    typeLine();
+
+    // Love meter animation
+    function fillMeter() {
+      const progress = document.getElementById("progress");
+      let val = 0;
+      const interval = setInterval(()=>{
+        if(val >= 100) clearInterval(interval);
+        else { val += 5; progress.value = val; }
+      }, 200);
+    }
+
+    // Slideshow
+    let slideIndex = 1;
+    function plusSlides(n) { showSlides(slideIndex += n); sprinkleEmojis(); }
+    function currentSlide(n) { showSlides(slideIndex = n); sprinkleEmojis(); }
+
+    function showSlides(n) {
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
+      if (n > slides.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = slides.length}
+      for (let s of slides) s.style.display = "none";
+      for (let d of dots) d.className = d.className.replace(" active", "");
+      slides[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += " active";
+    }
+
+    // Emoji sprinkle effect
+    function sprinkleEmojis() {
+      const emojiRain = document.getElementById("emojiRain");
+      const emojis = ["❤️","🥥","😂","✨","💐"];
+      const e = document.createElement("div");
+      e.style.position = "absolute";
+      e.style.left = Math.random()*100 + "%";
+      e.style.top = "0px";
+      e.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+      emojiRain.appendChild(e);
+      let pos = 0;
+      const fall = setInterval(()=>{
+        if(pos > window.innerHeight) { clearInterval(fall); e.remove(); }
+        else { pos+=4; e.style.top = pos+"px"; }
+      }, 30);
+    }
+  </script>
+</body>
+</html>
